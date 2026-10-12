@@ -18,4 +18,5 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*'),
         );
-    })->create();
+    })->create()
+    ->useStoragePath(isset($_ENV['VERCEL']) || isset($_SERVER['VERCEL']) ? '/tmp/storage' : dirname(__DIR__).'/storage');
