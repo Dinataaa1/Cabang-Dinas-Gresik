@@ -64,7 +64,7 @@
                 <p style="font-size: 14px; font-weight: 600;">Belum ada standar pelayanan untuk kategori ini.</p>
             </div>
         @else
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 20px;">
                 @foreach($services as $index => $service)
                     @php
                         $theme = match($service->category) {

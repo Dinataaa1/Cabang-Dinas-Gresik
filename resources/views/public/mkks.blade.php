@@ -64,7 +64,25 @@
                     </div>
 
                     <!-- Statistik Pendidikan Kategori (5 Premium Cards) -->
-                    <div id="stat-cards-container" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 10px;">
+                    <style>
+                        #stat-cards-container {
+                            display: grid;
+                            grid-template-columns: repeat(5, 1fr);
+                            gap: 10px;
+                            margin-bottom: 10px;
+                        }
+                        @media (max-width: 992px) {
+                            #stat-cards-container {
+                                grid-template-columns: repeat(3, 1fr) !important;
+                            }
+                        }
+                        @media (max-width: 576px) {
+                            #stat-cards-container {
+                                grid-template-columns: repeat(2, 1fr) !important;
+                            }
+                        }
+                    </style>
+                    <div id="stat-cards-container">
                         {{-- Card 1: Sekolah --}}
                         <div id="stat-card-sekolah" class="stat-card" style="background: #f8fafc; border: 1px solid var(--border); border-radius: 14px; padding: 18px 8px; text-align: center; border-bottom: 3px solid #0f172a; transition: all .35s cubic-bezier(.4,0,.2,1); cursor: default;">
                             <div style="font-size: 22px; margin-bottom: 8px; color: #0f172a; transition: transform .35s ease;"><i class="bi bi-bank"></i></div>

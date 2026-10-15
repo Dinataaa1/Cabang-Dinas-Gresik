@@ -71,7 +71,7 @@
                         <span style="background: var(--primary); color: white; border-radius: 50%; width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">1</span>
                         Data Diri Responden
                     </h4>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div class="skm-grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
                         {{-- Nama Lengkap --}}
                         <div class="skm-field" style="grid-column: 1 / -1;">
                             <label class="skm-label">Nama Lengkap <span style="color:#dc2626;">*</span></label>
@@ -365,6 +365,7 @@ button[type="submit"]:hover {
     to   { opacity: 1; transform: translateY(0); }
 }
 @media (max-width: 640px) {
+    .skm-grid-2 { grid-template-columns: 1fr !important; }
     .skm-field[style*="grid-column"] { grid-column: 1 / -1 !important; }
 }
 </style>

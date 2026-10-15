@@ -77,7 +77,7 @@
                 <div class="welcome-box">
                     <div class="welcome-img-container">
                         <!-- Foto Kepala Cabdin -->
-                        <img src="{{ $sambutanFoto && $sambutanFoto->image ? asset('storage/' . $sambutanFoto->image) : asset('images/kepala_dinas.jpg') }}" alt="{{ $sambutanNama ? $sambutanNama->content : 'Dr. S. Hariyanto, S.Pd., M.M.' }}" style="width: 100%; height: 450px; object-fit: cover; display: block; border-radius: var(--radius-md);">
+                        <img src="{{ $sambutanFoto && $sambutanFoto->image ? asset('storage/' . $sambutanFoto->image) : asset('images/kepala_dinas.jpg') }}" alt="{{ $sambutanNama ? $sambutanNama->content : 'Dr. S. Hariyanto, S.Pd., M.M.' }}" style="width: 100%; height: auto; max-height: 450px; object-fit: cover; display: block; border-radius: var(--radius-md);">
                     </div>
                     <div class="welcome-text">
                         <div style="font-size: 14px; margin-bottom: 15px; color: var(--text-muted); text-align: justify; line-height: 1.7;">
@@ -162,7 +162,7 @@
                 <h3 style="font-size: 12.5px; font-weight: 700; color: #1e3a5f; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.6px;">
                     <i class="bi bi-bar-chart-fill"></i> Data Pendidikan Wilayah Kab. Gresik
                 </h3>
-                <div class="stats-grid-4" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                <div class="stats-grid-4">
 
                     <!-- SMA — Navy Blue -->
                     <div class="stat-card sma">
@@ -667,7 +667,7 @@
 <!-- SEKSI BERITA & KEGIATAN TERBARU -->
 <section class="main-section" style="background-color: #f8fafc; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding-top: 20px; padding-bottom: 30px;">
     <div class="container-wide">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 12px;">
             <h2 class="section-title" style="margin-bottom: 0;">Berita & Kegiatan Terbaru</h2>
             <a href="{{ route('posts.index', ['type' => 'berita']) }}" style="font-size: 13px; font-weight: 700; color: var(--secondary);">Lihat Semua →</a>
         </div>
@@ -733,12 +733,12 @@
 <section class="main-section" style="background-color: #ffffff;">
     <div class="container-wide">
         
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 12px;">
             <div>
                 <h2 class="section-title" style="margin-bottom: 0;">Prestasi & Inovasi Sekolah</h2>
                 <p style="font-size: 13px; color: var(--text-muted);">Karya inovatif dan prestasi kebanggaan luar biasa sekolah se-Kabupaten Gresik.</p>
             </div>
-            <div style="display: flex; gap: 15px; align-items: center;">
+            <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
                 <a href="{{ route('posts.index', ['type' => 'prestasi']) }}" style="font-size: 13px; font-weight: 700; color: var(--secondary);">Semua Prestasi</a>
                 <span style="color: var(--border);">|</span>
                 <a href="{{ route('posts.index', ['type' => 'inovasi']) }}" style="font-size: 13px; font-weight: 700; color: var(--secondary);">Semua Inovasi</a>
@@ -784,9 +784,9 @@
             </div>
 
             @if($combinedPosts->count() > 1)
-                <div class="carousel-controls" style="position: absolute; top: 40%; width: 100%; display: flex; justify-content: space-between; pointer-events: none; z-index: 10; left: 0; padding: 0 10px;">
-                    <button class="carousel-arrow prev" style="pointer-events: auto; background-color: rgba(11, 31, 63, 0.85); color: white; width: 36px; height: 36px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transform: translateX(-15px); box-shadow: var(--shadow-md);"><i class="bi bi-chevron-left"></i></button>
-                    <button class="carousel-arrow next" style="pointer-events: auto; background-color: rgba(11, 31, 63, 0.85); color: white; width: 36px; height: 36px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transform: translateX(15px); box-shadow: var(--shadow-md);"><i class="bi bi-chevron-right"></i></button>
+                <div class="carousel-controls" style="position: absolute; top: 40%; width: 100%; display: flex; justify-content: space-between; pointer-events: none; z-index: 10; left: 0; padding: 0 4px;">
+                    <button class="carousel-arrow prev" style="pointer-events: auto; background-color: rgba(11, 31, 63, 0.85); color: white; width: 36px; height: 36px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow-md);"><i class="bi bi-chevron-left"></i></button>
+                    <button class="carousel-arrow next" style="pointer-events: auto; background-color: rgba(11, 31, 63, 0.85); color: white; width: 36px; height: 36px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow-md);"><i class="bi bi-chevron-right"></i></button>
                 </div>
                 
                 <div class="carousel-dots" id="dots-prestasi-inovasi" style="display: flex; justify-content: center; gap: 8px; margin-top: 25px;">

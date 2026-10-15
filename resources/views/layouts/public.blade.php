@@ -99,15 +99,23 @@
     <!-- NAVIGATION BAR -->
     <nav class="main-navbar">
         <div class="container-wide nav-container">
-            <ul class="nav-links">
+            <!-- Mobile Navigation Toggle Bar -->
+            <div class="nav-mobile-bar">
+                <span class="nav-mobile-title"><i class="bi bi-grid-fill" style="margin-right: 6px; color: var(--accent);"></i> Menu Navigasi</span>
+                <button type="button" class="nav-toggle-btn" id="navToggleBtn" aria-label="Buka Menu Navigasi" aria-expanded="false">
+                    <i class="bi bi-list" id="navToggleIcon"></i>
+                </button>
+            </div>
+
+            <ul class="nav-links" id="mainNavLinks">
                 <!-- Beranda -->
                 <li class="nav-item {{ Route::is('home') ? 'active' : '' }}">
                     <a href="{{ route('home') }}" class="nav-link">Beranda</a>
                 </li>
 
                 <!-- Profil -->
-                <li class="nav-item {{ Route::is('profile') ? 'active' : '' }}">
-                    <a href="#" class="nav-link">Profil <i class="bi bi-chevron-down" style="font-size: 10px; margin-left: 2px;"></i></a>
+                <li class="nav-item has-dropdown {{ Route::is('profile') ? 'active' : '' }}">
+                    <a href="#" class="nav-link dropdown-toggle-link">Profil <i class="bi bi-chevron-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item"><a href="{{ route('profile') }}#tentang-kami">Tentang Kami</a></li>
                         <li class="dropdown-item"><a href="{{ route('profile') }}#visi-misi">Visi &amp; Misi</a></li>
@@ -116,8 +124,8 @@
                 </li>
 
                 <!-- Data Pendidikan -->
-                <li class="nav-item {{ Route::is('mkks.show') ? 'active' : '' }}">
-                    <a href="#" class="nav-link">Data Pendidikan <i class="bi bi-chevron-down" style="font-size: 10px; margin-left: 2px;"></i></a>
+                <li class="nav-item has-dropdown {{ Route::is('mkks.show') ? 'active' : '' }}">
+                    <a href="#" class="nav-link dropdown-toggle-link">Data Pendidikan <i class="bi bi-chevron-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item">
                             <a href="{{ route('mkks.show', ['category' => 'sma']) }}">
@@ -138,8 +146,8 @@
                 </li>
 
                 <!-- Layanan -->
-                <li class="nav-item {{ Route::is('services.*') || Route::is('skm') || Route::is('pengaduan') ? 'active' : '' }}">
-                    <a href="#" class="nav-link">Layanan <i class="bi bi-chevron-down" style="font-size: 10px; margin-left: 2px;"></i></a>
+                <li class="nav-item has-dropdown {{ Route::is('services.*') || Route::is('skm') || Route::is('pengaduan') ? 'active' : '' }}">
+                    <a href="#" class="nav-link dropdown-toggle-link">Layanan <i class="bi bi-chevron-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item"><a href="{{ route('services.index') }}">Layanan Cabdin</a></li>
                         <li class="dropdown-item"><a href="{{ route('skm') }}">Survei Kepuasan Masyarakat (SKM)</a></li>
@@ -148,8 +156,8 @@
                 </li>
 
                 <!-- Publikasi (Berita + Pengumuman + Inovasi + Prestasi) -->
-                <li class="nav-item {{ Route::is('posts.*') ? 'active' : '' }}">
-                    <a href="#" class="nav-link">Publikasi <i class="bi bi-chevron-down" style="font-size: 10px; margin-left: 2px;"></i></a>
+                <li class="nav-item has-dropdown {{ Route::is('posts.*') ? 'active' : '' }}">
+                    <a href="#" class="nav-link dropdown-toggle-link">Publikasi <i class="bi bi-chevron-down" style="font-size: 10px; margin-left: 2px;"></i></a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item"><a href="{{ route('posts.index', ['type' => 'berita']) }}">Berita</a></li>
                         <li class="dropdown-item"><a href="{{ route('posts.index', ['type' => 'pengumuman']) }}">Pengumuman</a></li>
@@ -325,6 +333,62 @@
 
         });
         </script>
+
+    <!-- Mobile Navigation Toggle Script -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navToggleBtn = document.getElementById('navToggleBtn');
+        const navLinks = document.getElementById('mainNavLinks');
+        const navToggleIcon = document.getElementById('navToggleIcon');
+
+        if (navToggleBtn && navLinks) {
+            navToggleBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                const isOpen = navLinks.classList.toggle('show');
+                navToggleBtn.setAttribute('aria-expanded', isOpen);
+                if (navToggleIcon) {
+                    navToggleIcon.className = isOpen ? 'bi bi-x-lg' : 'bi bi-list';
+                }
+            });
+        }
+
+        // Handle dropdown toggle on mobile devices
+        const dropdownItems = document.querySelectorAll('.nav-item.has-dropdown');
+        dropdownItems.forEach(function (item) {
+            const toggleLink = item.querySelector('.dropdown-toggle-link');
+            if (toggleLink) {
+                toggleLink.addEventListener('click', function (e) {
+                    if (window.innerWidth <= 992) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const isCurrentlyOpen = item.classList.contains('dropdown-open');
+                        dropdownItems.forEach(function (other) {
+                            other.classList.remove('dropdown-open');
+                        });
+                        if (!isCurrentlyOpen) {
+                            item.classList.add('dropdown-open');
+                        }
+                    }
+                });
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function (e) {
+            if (window.innerWidth <= 992 && navLinks && navLinks.classList.contains('show')) {
+                const navbar = document.querySelector('.main-navbar');
+                if (navbar && !navbar.contains(e.target)) {
+                    navLinks.classList.remove('show');
+                    if (navToggleBtn) navToggleBtn.setAttribute('aria-expanded', 'false');
+                    if (navToggleIcon) navToggleIcon.className = 'bi bi-list';
+                    dropdownItems.forEach(function (other) {
+                        other.classList.remove('dropdown-open');
+                    });
+                }
+            }
+        });
+    });
+    </script>
 
     @yield('scripts')
 
