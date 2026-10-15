@@ -38,6 +38,80 @@
 </section>
 
 <section class="main-section" style="padding-top:0;">
+    <style>
+    /* ── Kegiatan detail responsive ── */
+    .keg-slider-wrap {
+        padding: 0;
+        overflow: hidden;
+        border-radius: 16px;
+        margin-bottom: 24px;
+    }
+    .keg-main-slider {
+        position: relative;
+        height: 420px;
+        overflow: hidden;
+        background: #0b1f3f;
+    }
+    .keg-content-card {
+        border-top: 4px solid var(--secondary);
+        padding: 28px;
+        box-sizing: border-box;
+        width: 100%;
+    }
+    .keg-title {
+        font-size: 22px;
+        font-weight: 900;
+        color: #0b1f3f;
+        margin: 0 0 20px;
+        line-height: 1.3;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+    .keg-footer-row {
+        margin-top: 18px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .keg-share-controls {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    @media (max-width: 768px) {
+        .keg-main-slider {
+            height: 220px !important;
+        }
+        .keg-content-card {
+            padding: 16px 14px !important;
+        }
+        .keg-title {
+            font-size: 17px !important;
+        }
+        .keg-footer-row {
+            flex-direction: column !important;
+            align-items: stretch !important;
+        }
+        .keg-footer-row .btn-secondary {
+            width: 100%;
+            text-align: center;
+            justify-content: center;
+        }
+        .keg-share-controls {
+            width: 100%;
+            justify-content: flex-start;
+        }
+    }
+    @media (max-width: 480px) {
+        .keg-main-slider {
+            height: 190px !important;
+        }
+    }
+    </style>
+
     <div class="container grid-2">
 
         <div class="col-left">
@@ -50,10 +124,10 @@
             @endphp
 
             @if($photoCount > 0)
-            <div class="card" style="padding:0;overflow:hidden;border-radius:16px;margin-bottom:24px;">
+            <div class="card keg-slider-wrap">
                 <div style="position:relative;background:#0b1f3f;">
                     {{-- Main slider --}}
-                    <div id="main-slider" style="position:relative;height:420px;overflow:hidden;">
+                    <div id="main-slider" class="keg-main-slider">
                         @foreach($allPhotos as $pi => $photo)
                         <img src="{{ $photo }}" id="main-slide-{{ $pi }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .6s ease;opacity:{{ $pi===0?1:0 }};">
                         @endforeach
@@ -70,7 +144,7 @@
 
                     {{-- Thumbnail strip --}}
                     @if($photoCount > 1)
-                    <div id="thumb-strip" style="display:flex;gap:8px;padding:12px;background:#111827;overflow-x:auto;scrollbar-width:none; max-width: 100%;">
+                    <div id="thumb-strip" style="display:flex;gap:8px;padding:12px;background:#111827;overflow-x:auto;scrollbar-width:none;max-width:100%;">
                         @foreach($allPhotos as $pi => $photo)
                         <img src="{{ $photo }}" onclick="mainGoto({{ $pi }})" id="thumb-{{ $pi }}" style="height:62px;min-width:90px;object-fit:cover;border-radius:6px;cursor:pointer;border:2px solid {{ $pi===0?'#f59e0b':'transparent' }};transition:border-color .2s;opacity:{{ $pi===0?1:.65 }};">
                         @endforeach
@@ -81,7 +155,7 @@
             @endif
 
             {{-- Content --}}
-            <div class="card" style="border-top:4px solid var(--secondary);padding:28px;">
+            <div class="card keg-content-card">
                 <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:20px;font-size:12.5px;color:#64748b;">
                     <span style="background:#eff6ff;color:#1d4ed8;padding:4px 12px;border-radius:20px;font-weight:700;">{{ ucfirst($activity->category) }}</span>
                     @if($activity->activity_date)
@@ -93,18 +167,18 @@
                     <span><i class="bi bi-eye"></i> {{ number_format($activity->views) }}</span>
                 </div>
 
-                <h2 style="font-size:22px;font-weight:900;color:#0b1f3f;margin:0 0 20px;line-height:1.3;">{{ $activity->title }}</h2>
+                <h2 class="keg-title">{{ $activity->title }}</h2>
 
                 @if($activity->description)
-                <div style="font-size:14.5px;line-height:1.85;color:#334155;">
+                <div style="font-size:14.5px;line-height:1.85;color:#334155;word-break:break-word;overflow-wrap:break-word;">
                     {!! $activity->description !!}
                 </div>
                 @endif
             
-                <div style="margin-top:18px; display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+                <div class="keg-footer-row">
                     <a href="{{ route('kegiatan.index') }}" class="btn btn-secondary">← Kembali ke Daftar Kegiatan</a>
 
-                    <div id="share-controls-activity" style="display:inline-flex; gap:8px; align-items:center;">
+                    <div id="share-controls-activity" class="keg-share-controls">
                         <button type="button" class="btn btn-light" id="btn-web-share-activity" title="Bagikan" style="display:none;"><i class="bi bi-share-fill"></i></button>
                         <a href="#" id="share-whatsapp-activity" class="btn btn-light" title="Bagikan ke WhatsApp"><i class="bi bi-whatsapp" style="color:#25D366;"></i></a>
                         <a href="#" id="share-facebook-activity" class="btn btn-light" title="Bagikan ke Facebook"><i class="bi bi-facebook" style="color:#1877F2;"></i></a>
