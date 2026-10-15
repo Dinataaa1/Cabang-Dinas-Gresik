@@ -36,7 +36,7 @@
             </div>
         @else
         {{-- Gallery Grid --}}
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%, 280px),1fr));gap:24px;">
             @foreach($activities as $activity)
             <div class="activity-card" style="border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);background:#fff;transition:all .3s cubic-bezier(.4,0,.2,1);border:1px solid #f1f5f9;" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 12px 32px rgba(0,0,0,.14)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(0,0,0,.08)'">
                 

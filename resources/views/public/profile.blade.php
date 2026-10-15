@@ -4,17 +4,50 @@
 
 @section('content')
 
-    <!-- SECTION 1: TENTANG KAMI -->
-    <div class="content-box" id="tentang-kami">
-        <h2 class="section-title">Tentang Kami</h2>
+<!-- PAGE HEADER -->
+<section class="page-header">
+    <div class="container">
+        <h2>Profil Lembaga</h2>
+        <div class="breadcrumb">
+            <a href="{{ route('home') }}">Beranda</a> / Profil
+        </div>
+    </div>
+</section>
 
-        @if($about && $about->image)
-            <div class="about-layout">
-                <div class="about-media">
-                    <img src="{{ asset('storage/' . $about->image) }}" alt="Foto Tentang Kami" class="about-image">
+<!-- MAIN CONTENT -->
+<section class="main-section" style="padding-top: 0;">
+    <div class="container">
+        <style>
+            @media (max-width: 768px) {
+                .content-box {
+                    padding: 20px 16px !important;
+                    margin-bottom: 24px !important;
+                }
+            }
+        </style>
+
+        <!-- SECTION 1: TENTANG KAMI -->
+        <div class="content-box" id="tentang-kami">
+            <h2 class="section-title">Tentang Kami</h2>
+
+            @if($about && $about->image)
+                <div class="about-layout">
+                    <div class="about-media">
+                        <img src="{{ asset('storage/' . $about->image) }}" alt="Foto Tentang Kami" class="about-image">
+                    </div>
+                    <div class="rich-content about-text">
+                        @if($about->content)
+                            {!! $about->content !!}
+                        @else
+                            <p class="empty-content">
+                                Informasi profil tentang kami belum ditambahkan oleh administrator.
+                            </p>
+                        @endif
+                    </div>
                 </div>
-                <div class="rich-content about-text">
-                    @if($about->content)
+            @else
+                <div class="rich-content">
+                    @if($about && $about->content)
                         {!! $about->content !!}
                     @else
                         <p class="empty-content">
@@ -22,20 +55,8 @@
                         </p>
                     @endif
                 </div>
-            </div>
-        @else
-            <div class="rich-content">
-                @if($about && $about->content)
-                    {!! $about->content !!}
-                @else
-                    <p class="empty-content">
-                        Informasi profil tentang kami belum ditambahkan oleh administrator.
-                    </p>
-                @endif
-            </div>
-        @endif
+            @endif
         </div>
-    </div>
 
 
     <!-- SECTION 2: VISI & MISI -->
@@ -177,6 +198,7 @@
         </div>
     </div>
 
-</div>
+    </div>
+</section>
 
 @endsection
