@@ -44,14 +44,141 @@
 
 <!-- MAIN CONTENT -->
 <section class="main-section" style="padding-top: 0;">
+    <style>
+    .post-detail-card {
+        padding: 35px 38px;
+        border-top: 4px solid var(--accent);
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 100%;
+    }
+    .post-detail-title {
+        font-size: 26px;
+        font-weight: 800;
+        color: var(--primary);
+        line-height: 1.35;
+        margin-bottom: 22px;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+    .post-main-img-box {
+        margin-bottom: 28px;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        max-height: 480px;
+        border: 1px solid var(--border);
+        width: 100%;
+    }
+    .post-main-img-box img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+    }
+    .post-content {
+        font-size: 15px;
+        line-height: 1.8;
+        color: var(--text-dark);
+        text-align: justify;
+        margin-bottom: 28px;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+    .post-footer-bar {
+        border-top: 1px solid var(--border);
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+    .post-share-wrap {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    .post-share-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: #f8fafc;
+        color: var(--text-dark);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 15px;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        flex-shrink: 0;
+    }
+    .post-share-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-sm);
+    }
+    .share-btn-wa { color: #25D366; background: #f0fdf4; border-color: #bbf7d0; }
+    .share-btn-wa:hover { background: #25D366; color: #fff; }
+    .share-btn-fb { color: #1877F2; background: #eff6ff; border-color: #bfdbfe; }
+    .share-btn-fb:hover { background: #1877F2; color: #fff; }
+    .share-btn-tw { color: #0f1419; background: #f8fafc; border-color: #cbd5e1; }
+    .share-btn-tw:hover { background: #0f1419; color: #fff; }
+    .share-btn-tg { color: #0284c7; background: #f0f9ff; border-color: #bae6fd; }
+    .share-btn-tg:hover { background: #0284c7; color: #fff; }
+    .share-btn-copy { color: #475569; background: #f8fafc; border-color: #cbd5e1; }
+    .share-btn-copy:hover { background: #475569; color: #fff; }
+    .share-btn-native { color: var(--secondary); background: #f0fdfa; border-color: #99f6e4; }
+    .share-btn-native:hover { background: var(--secondary); color: #fff; }
+
+    @media (max-width: 768px) {
+        .post-detail-card {
+            padding: 20px 15px !important;
+            border-radius: var(--radius-sm);
+        }
+        .post-detail-title {
+            font-size: 19px !important;
+            line-height: 1.35 !important;
+            margin-bottom: 16px !important;
+        }
+        .post-content {
+            font-size: 14px !important;
+            line-height: 1.7 !important;
+            text-align: left !important;
+        }
+        .post-footer-bar {
+            flex-direction: column;
+            align-items: stretch !important;
+            gap: 14px !important;
+        }
+        .post-footer-bar .btn-secondary {
+            width: 100%;
+            text-align: center;
+            justify-content: center;
+        }
+        .post-share-wrap {
+            width: 100%;
+            justify-content: space-between;
+        }
+    }
+    @media (max-width: 480px) {
+        .post-share-wrap {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+    }
+    </style>
+
     <div class="container grid-2">
         
         <!-- KOLOM KIRI: KONTEN UTAMA -->
         <div class="col-left">
-            <article class="card" style="padding: 40px; border-top: 4px solid var(--accent);">
+            <article class="card post-detail-card">
                 
                 <!-- Meta Postingan -->
-                <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 20px; font-size: 13px; color: var(--text-muted); font-weight: 500; flex-wrap: wrap;">
+                <div style="display: flex; gap: 10px 14px; align-items: center; margin-bottom: 18px; font-size: 12.5px; color: var(--text-muted); font-weight: 500; flex-wrap: wrap;">
                     <span class="news-badge" style="position: static; display: inline-block;">{{ $post->type }}</span>
                     <span><i class="bi bi-calendar-event" style="margin-right: 4px;"></i> {{ $post->created_at->format('d F Y') }}</span>
                     <span><i class="bi bi-person-fill" style="margin-right: 4px;"></i> Admin Cabdin</span>
@@ -62,35 +189,35 @@
                 </div>
 
                 <!-- Judul Postingan -->
-                <h1 style="font-size: 26px; font-weight: 800; color: var(--primary); line-height: 1.3; margin-bottom: 25px;">
+                <h1 class="post-detail-title">
                     {{ $post->title }}
                 </h1>
 
                 <!-- Gambar Utama -->
-                <div style="margin-bottom: 30px; border-radius: var(--radius-md); overflow: hidden; max-height: 450px; border: 1px solid var(--border);">
-                    <img src="{{ $post->image ? (Str::startsWith($post->image, 'http') ? $post->image : asset('storage/' . $post->image)) : 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop' }}" alt="{{ $post->title }}" style="width: 100%; height: auto; display: block; object-fit: cover;">
+                <div class="post-main-img-box">
+                    <img src="{{ $post->image ? (Str::startsWith($post->image, 'http') ? $post->image : asset('storage/' . $post->image)) : 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop' }}" alt="{{ $post->title }}">
                 </div>
 
                 <!-- Isi Konten -->
-                <div style="font-size: 15px; line-height: 1.8; color: var(--text-dark); text-align: justify; margin-bottom: 30px;" class="post-content">
+                <div class="post-content">
                     {!! $post->content !!}
                 </div>
 
                 <!-- Tombol Kembali + Share -->
-                <div style="border-top: 1px solid var(--border); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <div class="post-footer-bar">
                     <a href="{{ route('posts.index') }}" class="btn btn-secondary"><i class="bi bi-arrow-left" style="margin-right: 4px;"></i> Kembali ke Kanal Informasi</a>
 
-                    <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="post-share-wrap">
                         <span style="font-size: 13px; color: var(--text-muted); font-weight: 500;">Kategori: <strong style="color: var(--secondary);">{{ ucfirst($post->type) }}</strong></span>
 
                         <!-- Share buttons -->
-                        <div id="share-controls" style="display: inline-flex; gap: 8px; align-items: center;">
-                            <button type="button" class="btn btn-light" id="btn-web-share" title="Bagikan" style="display: none;"><i class="bi bi-share-fill"></i></button>
-                            <a href="#" id="share-whatsapp" class="btn btn-light" title="Bagikan ke WhatsApp"><i class="bi bi-whatsapp" style="color: #25D366;"></i></a>
-                            <a href="#" id="share-facebook" class="btn btn-light" title="Bagikan ke Facebook"><i class="bi bi-facebook" style="color: #1877F2;"></i></a>
-                            <a href="#" id="share-twitter" class="btn btn-light" title="Bagikan ke Twitter"><i class="bi bi-twitter" style="color: #1DA1F2;"></i></a>
-                            <a href="#" id="share-telegram" class="btn btn-light" title="Bagikan ke Telegram"><i class="bi bi-telegram" style="color: #0088cc;"></i></a>
-                            <button type="button" class="btn btn-light" id="btn-copy-link" title="Salin tautan"><i class="bi bi-clipboard"></i></button>
+                        <div id="share-controls" style="display: inline-flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                            <button type="button" class="post-share-btn share-btn-native" id="btn-web-share" title="Bagikan" style="display: none;"><i class="bi bi-share-fill"></i></button>
+                            <a href="#" id="share-whatsapp" class="post-share-btn share-btn-wa" title="Bagikan ke WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                            <a href="#" id="share-facebook" class="post-share-btn share-btn-fb" title="Bagikan ke Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" id="share-twitter" class="post-share-btn share-btn-tw" title="Bagikan ke Twitter"><i class="bi bi-twitter"></i></a>
+                            <a href="#" id="share-telegram" class="post-share-btn share-btn-tg" title="Bagikan ke Telegram"><i class="bi bi-telegram"></i></a>
+                            <button type="button" class="post-share-btn share-btn-copy" id="btn-copy-link" title="Salin tautan"><i class="bi bi-clipboard"></i></button>
                         </div>
                     </div>
                 </div>
