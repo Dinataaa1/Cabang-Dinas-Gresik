@@ -19,11 +19,11 @@ class ActivitySeeder extends Seeder
             'location' => 'SMK Negeri 1 Gresik',
             'activity_date' => '2026-03-10',
             'category' => 'prestasi',
-            'cover_image' => null, // We will use URL directly or placeholder
+            'cover_image' => 'activities/lks_cover.jpg',
             'images' => [
-                'https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&w=800',
-                'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800',
-                'https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=800'
+                'activities/lks_1.jpg',
+                'activities/lks_2.jpg',
+                'activities/lks_3.jpg',
             ],
             'is_published' => true,
         ]);
@@ -35,11 +35,11 @@ class ActivitySeeder extends Seeder
             'location' => 'Gedung Nasional Indonesia (GNI) Gresik',
             'activity_date' => '2026-04-15',
             'category' => 'seni',
-            'cover_image' => null,
+            'cover_image' => 'activities/fls2n_cover.jpg',
             'images' => [
-                'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800',
-                'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?q=80&w=800',
-                'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800'
+                'activities/fls2n_1.jpg',
+                'activities/fls2n_2.jpg',
+                'activities/fls2n_3.jpg',
             ],
             'is_published' => true,
         ]);
@@ -51,11 +51,11 @@ class ActivitySeeder extends Seeder
             'location' => 'Aula Cabang Dinas Pendidikan Gresik',
             'activity_date' => '2026-07-22',
             'category' => 'pendidikan',
-            'cover_image' => null,
+            'cover_image' => 'activities/tc90IFEA99zmVKxiaAFwJmFDG7bJMJmKdsxy32d9.jpg',
             'images' => [
-                'https://images.unsplash.com/photo-1431540015161-0bf868a2d407?q=80&w=800',
-                'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800',
-                'https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=800'
+                'activities/RBnxAuNt8941VMbQZM9PoNCq5AmWzkshdc95W8FN.jpg',
+                'activities/k5GxZA9RWQO3tfFnJBGVSTXlDwAhtyQl3qrn1JRU.jpg',
+                'activities/iB8piMtJArjbkfgYSKYdSjlKGNRFbhxsjghTocpT.jpg',
             ],
             'is_published' => true,
         ]);

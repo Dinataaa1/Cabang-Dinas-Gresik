@@ -36,8 +36,8 @@
             <tr style="border-bottom:1px solid #f1f5f9;transition:background .15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background=''">
                 <td style="padding:12px 16px;">
                     <div style="display:flex;align-items:center;gap:12px;">
-                        @if($activity->cover_image)
-                            <img src="{{ asset('storage/'.$activity->cover_image) }}" style="width:56px;height:40px;object-fit:cover;border-radius:6px;border:1px solid #e2e8f0;">
+                        @if($activity->cover_image_url)
+                            <img src="{{ $activity->cover_image_url }}" alt="{{ $activity->title }}" style="width:56px;height:40px;object-fit:cover;border-radius:6px;border:1px solid #e2e8f0;" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop';">
                         @else
                             <div style="width:56px;height:40px;background:#f1f5f9;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#94a3b8;"><i class="bi bi-image"></i></div>
                         @endif

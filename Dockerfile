@@ -1,4 +1,4 @@
-﻿FROM serversideup/php:8.4-fpm-nginx
+FROM serversideup/php:8.4-fpm-nginx
 
 USER root
 
@@ -20,5 +20,9 @@ RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Jalankan storage link
 RUN php artisan storage:link || true
+
+# Script auto-migrate & auto-link saat container start di Railway
+COPY docker/entrypoint.d/99-deploy.sh /etc/entrypoint.d/99-deploy.sh
+RUN chmod +x /etc/entrypoint.d/99-deploy.sh
 
 USER www-data

@@ -3,15 +3,7 @@
 
 @section('meta')
     @php
-        $defaultActivityImage = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop';
-        $ogImage = $defaultActivityImage;
-        if(!empty($activity->cover_image)) {
-            if(Str::startsWith($activity->cover_image, 'http')) {
-                $ogImage = $activity->cover_image;
-            } elseif (\Illuminate\Support\Facades\Storage::disk('public')->exists($activity->cover_image)) {
-                $ogImage = url('storage/'.$activity->cover_image);
-            }
-        }
+        $ogImage = $activity->cover_image_url ?? 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop';
     @endphp
 
     <meta property="og:title" content="{{ $activity->title }}">
@@ -117,9 +109,7 @@
         <div class="col-left">
             {{-- Main Slider --}}
             @php
-                $allPhotos = [];
-                if($activity->cover_image) $allPhotos[] = asset('storage/'.$activity->cover_image);
-                foreach($activity->images ?? [] as $img) $allPhotos[] = asset('storage/'.$img);
+                $allPhotos = $activity->all_photos;
                 $photoCount = count($allPhotos);
             @endphp
 
@@ -129,7 +119,7 @@
                     {{-- Main slider --}}
                     <div id="main-slider" class="keg-main-slider">
                         @foreach($allPhotos as $pi => $photo)
-                        <img src="{{ $photo }}" id="main-slide-{{ $pi }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .6s ease;opacity:{{ $pi===0?1:0 }};">
+                        <img src="{{ $photo }}" id="main-slide-{{ $pi }}" alt="{{ $activity->title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .6s ease;opacity:{{ $pi===0?1:0 }};" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop';">
                         @endforeach
                         @if($photoCount > 1)
                         <button onclick="mainPrev()" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:50%;width:38px;height:38px;font-size:20px;cursor:pointer;z-index:20;display:flex;align-items:center;justify-content:center;">‹</button>
@@ -146,7 +136,7 @@
                     @if($photoCount > 1)
                     <div id="thumb-strip" style="display:flex;gap:8px;padding:12px;background:#111827;overflow-x:auto;scrollbar-width:none;max-width:100%;">
                         @foreach($allPhotos as $pi => $photo)
-                        <img src="{{ $photo }}" onclick="mainGoto({{ $pi }})" id="thumb-{{ $pi }}" style="height:62px;min-width:90px;object-fit:cover;border-radius:6px;cursor:pointer;border:2px solid {{ $pi===0?'#f59e0b':'transparent' }};transition:border-color .2s;opacity:{{ $pi===0?1:.65 }};">
+                        <img src="{{ $photo }}" onclick="mainGoto({{ $pi }})" id="thumb-{{ $pi }}" alt="{{ $activity->title }}" style="height:62px;min-width:90px;object-fit:cover;border-radius:6px;cursor:pointer;border:2px solid {{ $pi===0?'#f59e0b':'transparent' }};transition:border-color .2s;opacity:{{ $pi===0?1:.65 }};" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop';">
                         @endforeach
                     </div>
                     @endif
@@ -196,8 +186,8 @@
                 @forelse($related as $rel)
                 <a href="{{ route('kegiatan.show', $rel->slug) }}" style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f1f5f9;text-decoration:none;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
                     <div style="flex-shrink:0;">
-                        @if($rel->cover_image)
-                            <img src="{{ asset('storage/'.$rel->cover_image) }}" style="width:70px;height:50px;object-fit:cover;border-radius:8px;">
+                        @if($rel->cover_image_url)
+                            <img src="{{ $rel->cover_image_url }}" alt="{{ $rel->title }}" style="width:70px;height:50px;object-fit:cover;border-radius:8px;" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop';">
                         @else
                             <div style="width:70px;height:50px;background:#f1f5f9;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#cbd5e1;"><i class="bi bi-image"></i></div>
                         @endif

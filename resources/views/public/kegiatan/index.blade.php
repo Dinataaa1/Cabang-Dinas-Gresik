@@ -43,15 +43,13 @@
                 {{-- Card Slideshow/Cover --}}
                 <div style="position:relative;height:220px;overflow:hidden;background:#f1f5f9;">
                     @php
-                        $allPhotos = [];
-                        if($activity->cover_image) $allPhotos[] = asset('storage/'.$activity->cover_image);
-                        foreach($activity->images ?? [] as $img) $allPhotos[] = asset('storage/'.$img);
+                        $allPhotos = $activity->all_photos;
                         $photoCount = count($allPhotos);
                     @endphp
 
                     @if($photoCount > 0)
                         @foreach($allPhotos as $pi => $photo)
-                        <img src="{{ $photo }}" class="card-slide-img" id="slide-{{ $activity->id }}-{{ $pi }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s ease;opacity:{{ $pi===0?1:0 }};">
+                        <img src="{{ $photo }}" class="card-slide-img" id="slide-{{ $activity->id }}-{{ $pi }}" alt="{{ $activity->title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s ease;opacity:{{ $pi===0?1:0 }};" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop';">
                         @endforeach
 
                         @if($photoCount > 1)

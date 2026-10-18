@@ -56,7 +56,7 @@
                 <label>Foto Sampul Saat Ini</label>
                 @if($activity->cover_image)
                     <div style="margin-bottom:10px;">
-                        <img src="{{ asset('storage/'.$activity->cover_image) }}" style="max-height:180px;border-radius:10px;border:1px solid #e2e8f0;">
+                        <img src="{{ Str::startsWith($activity->cover_image, ['http://', 'https://']) ? $activity->cover_image : asset('storage/'.$activity->cover_image) }}" style="max-height:180px;border-radius:10px;border:1px solid #e2e8f0;" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop';">
                     </div>
                 @endif
                 <label for="cover_image">Ganti Foto Sampul (opsional)</label>
@@ -74,7 +74,7 @@
                     @foreach($activity->images as $img)
                     <label style="position:relative;cursor:pointer; display:block; width:140px; height:100px;">
                         <input type="checkbox" name="delete_images[]" value="{{ $img }}" style="position:absolute;top:6px;left:6px;width:18px;height:18px;accent-color:#dc2626; z-index: 10;">
-                        <img src="{{ asset('storage/'.$img) }}" style="width:140px;height:100px;object-fit:cover;border-radius:8px;border:2px solid #e2e8f0;display:block;">
+                        <img src="{{ Str::startsWith($img, ['http://', 'https://']) ? $img : asset('storage/'.$img) }}" style="width:140px;height:100px;object-fit:cover;border-radius:8px;border:2px solid #e2e8f0;display:block;" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop';">
                         <div style="position:absolute;bottom:4px;right:4px;background:rgba(220,38,38,.8);color:#fff;font-size:10px;padding:2px 6px;border-radius:4px; z-index: 10;">✕ Hapus</div>
                     </label>
                     @endforeach

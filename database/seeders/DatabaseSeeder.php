@@ -349,5 +349,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(CmsSeeder::class);
+        $this->call(ActivitySeeder::class);
     }
 }
